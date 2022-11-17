@@ -1,6 +1,7 @@
 import B2 from 'backblaze-b2';
 
 const uploadHandler = async (req, res) => {
+
   const file = await new Promise((resolve) => {
   const chunks = [];
 
@@ -14,7 +15,6 @@ const uploadHandler = async (req, res) => {
     req.on('end', () => {
       resolve(Buffer.concat(chunks));
     });
-
   });
 
   const b2 = new B2({
@@ -51,7 +51,7 @@ const uploadHandler = async (req, res) => {
   });
 };
 
-// tell next.js to disable body parsing and handle as a stream
+//tell next.js to disable body parsing and handle as a stream
 export const config = {
   api: {
     bodyParser: false,

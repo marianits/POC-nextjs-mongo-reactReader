@@ -16,18 +16,17 @@ export default function NewBook() {
   };
 
   const upload = async () => {
-    // PENDING RENAME
-    const fileExt = file.name.substring(file.name.lastIndexOf('.') + 1);
-    const fileName = `image.${fileExt}`;
+    console.log(file);
+    const formData = new FormData();
+
+    formData.append('file', file);
+    formData.append('title', title);
 
     try {
-      const { data } = await axios.post(`/api/books/upload`, file, {
-        headers: {
-          'content-type': file.type,
-          'x-filename': fileName,
-        },
+      await fetch('http://localhost:3000/api/books', {
+        method: 'POST',
+        body: formData
       });
-      console.log(data);
     } catch (err) {
       console.error(err);
     }
